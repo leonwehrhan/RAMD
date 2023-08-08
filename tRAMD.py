@@ -54,3 +54,21 @@ def read_dissociation_times(files, mode='log', timestep=2e-6):
     return times
 
 
+def bootstrap_residence_times(times, n_samples=50000, sample_size=None):
+    '''
+    Bootstrap dissociation times and calculate effective residence (after 50% of trjs have dissociated) times from samples.
+
+    Parameters
+    ----------
+    times : np.ndarray
+        Dissociation times in ns.
+    n_samples : int
+        Number of bootstrap sample groups.
+    sample_size : int or None
+        Size of sample groups.
+    
+    Returns
+    -------
+    bs_res_times : np.ndarray
+        Bootstrapped effective residence times.
+    '''
