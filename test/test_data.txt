@@ -1,0 +1,15 @@
+==== RAMD ==== GROMACS will be stopped after 1238450 steps.
+==== RAMD ==== GROMACS will be stopped after 4668300 steps.
+==== RAMD ==== GROMACS will be stopped after 1871400 steps.
+==== RAMD ==== GROMACS will be stopped after 1654050 steps.
+==== RAMD ==== GROMACS will be stopped after 9758700 steps.
+==== RAMD ==== GROMACS will be stopped after 2215950 steps.
+==== RAMD ==== GROMACS will be stopped after 3976450 steps.
+==== RAMD ==== GROMACS will be stopped after 6275000 steps.
+==== RAMD ==== GROMACS will be stopped after 5049350 steps.
+==== RAMD ==== GROMACS will be stopped after 9191000 steps.
+==== RAMD ==== GROMACS will be stopped after 3186800 steps.
+==== RAMD ==== GROMACS will be stopped after 5187250 steps.
+==== RAMD ==== GROMACS will be stopped after 871000 steps.
+==== RAMD ==== GROMACS will be stopped after 3099700 steps.
+==== RAMD ==== GROMACS will be stopped after 5201450 steps.
