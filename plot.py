@@ -40,7 +40,7 @@ def residence_time_distribution(ax, bs_res_times, n_bins=6, **kwargs):
         Number of bins for histogram.
     '''
     # plot histogram
-    ax.hist(bs_res_times, bins=n_bins, density=True, alpha=0.7, color='k')
+    ax.hist(bs_res_times, bins=n_bins, density=True, alpha=0.4, color='k')
 
     # calculate mean and std parameters of normal distribution
     loc, scale = stats.norm.fit(bs_res_times)
@@ -50,4 +50,7 @@ def residence_time_distribution(ax, bs_res_times, n_bins=6, **kwargs):
     xs = np.linspace(0.8 * xmin, xmax, 100)
     ys = stats.norm.pdf(xs, loc, scale)
     ax.plot(xs, ys, **kwargs)
-    ax.text(0.02, 0.98, f'Eff. Res. Time: {round(loc, 3)} ns', horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
+    ax.text(0.02, 0.98, f'Eff. Res. Time: {round(loc, 3)} +/- {round(scale, 3)} ns', horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
+
+    ax.set_xlabel('Effective Residence Time [ns]')
+    ax.set_ylabel('Probability Density')
