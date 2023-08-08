@@ -88,7 +88,7 @@ def bootstrap_residence_times(times, n_samples=50000, sample_size=None):
     for i in range(n_samples):
         # shuffle dissociation times and select bootstrap sample group
         np.random.shuffle(times)
-        sample = times[sample_size]
+        sample = times[:sample_size]
         sample = np.sort(sample)
 
         # calculate efective residence time

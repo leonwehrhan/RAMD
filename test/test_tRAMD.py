@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+import matplotlib.pyplot as plt
 from context import tRAMD
 from context import plot
 
@@ -16,3 +17,14 @@ def test_read_dissociation_times(times_results):
     times_ref = times_results
     times = tRAMD.read_dissociation_times('test_data.out', mode='out', timestep=2e-6)
     assert np.allclose(times_ref, times, atol=1e-3)
+
+
+def test_bootstrap_residence_times():
+    pass
+
+times = tRAMD.read_dissociation_times('test_data.out', mode='out', timestep=2e-6)
+bs_res_times = tRAMD.bootstrap_residence_times(times, n_samples=50000, sample_size=None)
+
+fig, ax = plt.subplots()
+plot.residence_time_distribution(ax, bs_res_times, n_bins=6)
+plt.show()
