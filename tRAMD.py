@@ -17,7 +17,7 @@ def read_residence_times(files, mode='log', timestep=2e-6):
     
     Returns
     -------
-    times : list
+    times : np.ndarray
         Residence times in ns.
     '''
     times = []
@@ -40,7 +40,7 @@ def read_residence_times(files, mode='log', timestep=2e-6):
                 for line in f.readlines():
                     if re.match(r'==== RAMD ==== GROMACS will be stopped', line):
                         s = re.search(r'[0-9]+', line)[0]
-                        t = round(int(s) * timestep, 3)
+                        t = int(s) * timestep
                         times.append(t)
 
     else:
@@ -50,3 +50,6 @@ def read_residence_times(files, mode='log', timestep=2e-6):
         print(f'Found {len(times)} residence times in {len(files)} files.')
     else:
         print(f'Found {len(times)} residence times in 1 file.')
+
+    return times
+
