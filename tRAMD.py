@@ -51,7 +51,10 @@ def read_dissociation_times(files, mode='log', timestep=2e-6):
     else:
         print(f'Found {len(times)} dissociation times in 1 file.')
 
-    return np.array(times)
+    times = np.array(times)
+    times = np.sort(times)
+
+    return times
 
 
 def bootstrap_residence_times(times, n_samples=50000, sample_size=None):
@@ -76,6 +79,9 @@ def bootstrap_residence_times(times, n_samples=50000, sample_size=None):
         sample_size = int(0.8 * len(times))
     
     bs_res_times = []
+
+    print(f'Calculating {n_samples} bootstrap samples with a size of {sample_size} from {len(times)} dissociation times.')
+    print(f'Median of dissociation times: {round(np.median(times), 3)}')
 
     for i in range(n_samples):
         # shuffle dissociation times and select bootstrap sample group
