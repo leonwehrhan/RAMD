@@ -2,9 +2,9 @@ import numpy as np
 import re
 
 
-def read_residence_times(files, mode='log', timestep=2e-6):
+def read_dissociation_times(files, mode='log', timestep=2e-6):
     '''
-    Read either .log files or .out file to gather the residence times from RAMD simulations
+    Read either .log files or .out file to gather the dissociation times from RAMD simulations
 
     Parameters
     ----------
@@ -18,7 +18,7 @@ def read_residence_times(files, mode='log', timestep=2e-6):
     Returns
     -------
     times : np.ndarray
-        Residence times in ns.
+        Dissociation times in ns.
     '''
     times = []
 
@@ -47,9 +47,10 @@ def read_residence_times(files, mode='log', timestep=2e-6):
         raise ValueError('mode must be "log" or "out".')
 
     if files.isinstance(list):
-        print(f'Found {len(times)} residence times in {len(files)} files.')
+        print(f'Found {len(times)} dissociation times in {len(files)} files.')
     else:
-        print(f'Found {len(times)} residence times in 1 file.')
+        print(f'Found {len(times)} dissociation times in 1 file.')
 
     return times
+
 
