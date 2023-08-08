@@ -24,3 +24,30 @@ def cumulative_histogram(ax, times, **kwargs):
 
     ax.set_xlabel('Dissociation Time [ns]')
     ax.set_ylabel('N_trj')
+
+
+def residence_time_distribution(ax, bs_res_times, n_bins=6, **kwargs):
+    '''
+    Plot histogram of bootstrapped effective residence times and a normal distribution based on the data.
+
+    Parameters
+    ----------
+    ax : plt.Axes
+        Matplotlib plot.
+    bs_res_times : np.ndarray
+        Bootstrapped effective residence times.
+    n_bins : int
+        Number of bins for histogram.
+    '''
+    # plot histogram
+    ax.hist(bs_res_times, bins=n_bins, density=True, alpha=0.7, color='k')
+
+    # calculate mean and std parameters of normal distribution
+    loc, scale = stats.norm.fit(bs_res_times)
+
+    # plot normal distribution
+    xmin, xmax = plt.xlim()
+    xs = np.linspace(0.8 * xmin, xmax, 100)
+    ys = stats.norm.pdf(xs, loc, scale)
+    ax.plot(xs, ys, **kwargs)
+    ax.text(0.02, 0.98, f'Eff. Res. Time: {round(loc, 3)} ns', horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
