@@ -1,5 +1,6 @@
 import numpy as np
 import re
+import plot
 
 
 def read_dissociation_times(files, mode='log', timestep=2e-6):
@@ -94,3 +95,11 @@ def bootstrap_residence_times(times, n_samples=50000, sample_size=None):
         bs_res_times.append(eff_rs)
     
     return np.array(bs_res_times)
+
+
+def main():
+    pass
+
+
+if __name__ == '__main__':
+    main()
