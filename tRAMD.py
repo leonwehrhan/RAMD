@@ -33,21 +33,22 @@ def read_dissociation_times(files, mode='log', timestep=2e-6):
                         times.append(t)
     
     elif mode == 'out':
-        if files.isinstance(str):
+        if isinstance(files, str):
             fi = files
-        elif files.isinstance(list):
+        elif isinstance(files, list):
             fi = files[0]
-            with open(fi, 'r') as f:
-                for line in f.readlines():
-                    if re.match(r'==== RAMD ==== GROMACS will be stopped', line):
-                        s = re.search(r'[0-9]+', line)[0]
-                        t = int(s) * timestep
-                        times.append(t)
+
+        with open(fi, 'r') as f:
+            for line in f.readlines():
+                if re.match(r'==== RAMD ==== GROMACS will be stopped', line):
+                    s = re.search(r'[0-9]+', line)[0]
+                    t = int(s) * timestep
+                    times.append(t)
 
     else:
         raise ValueError('mode must be "log" or "out".')
 
-    if files.isinstance(list):
+    if isinstance(files, list):
         print(f'Found {len(times)} dissociation times in {len(files)} files.')
     else:
         print(f'Found {len(times)} dissociation times in 1 file.')
