@@ -1,9 +1,12 @@
 import numpy as np
 import re
 import plot
+import argparse
+import os
+import matplotlib.pyplot as plt
 
 
-def read_dissociation_times(files, mode='log', timestep=2e-6):
+def read_dissociation_times(files, mode='out', timestep=2e-6):
     '''
     Read either .log files or .out file to gather the dissociation times from RAMD simulations
 
@@ -99,7 +102,27 @@ def bootstrap_residence_times(times, n_samples=50000, sample_size=None):
 
 
 def main():
-    pass
+    parser = argparse.ArgumentParser(description='Process tRAMD data to get effective residence times.')
+    parser.add_argument('input_file')
+    args = parser.parse_args()
+    input_file = args.input_file
+    basename = os.path.splitext(os.path.basename(input_file))[0]
+
+    times = read_dissociation_times('test_data.out', mode='out', timestep=2e-6)
+    bs_res_times = bootstrap_residence_times(times, n_samples=50000, sample_size=None)
+
+    np.savetxt(f'{basename}_t_diss.txt', times, fmt='%.3E')
+    np.savetxt(f'{basename}_t_res_bs.txt', bs_res_times, fmt='%.3E')
+
+    fig, ax = plt.subplots()
+    plot.cumulative_histogram(ax, times)
+    plt.savefig(f'{basename}_t_diss_hist.png', dpi=200)
+    plt.close()
+
+    fig, ax = plt.subplots()
+    plot.residence_time_distribution(ax, bs_res_times, n_bins=6)
+    plt.savefig(f'{basename}_t_eff.png', dpi=200)
+    plt.close()
 
 
 if __name__ == '__main__':
