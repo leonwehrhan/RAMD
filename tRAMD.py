@@ -104,11 +104,16 @@ def bootstrap_residence_times(times, n_samples=50000, sample_size=None):
 def main():
     parser = argparse.ArgumentParser(description='Process tRAMD data to get effective residence times.')
     parser.add_argument('input_file')
+    parser.add_argument('-o', help='Output file basename.')
     args = parser.parse_args()
     input_file = args.input_file
-    basename = os.path.splitext(os.path.basename(input_file))[0]
 
-    times = read_dissociation_times('test_data.out', mode='out', timestep=2e-6)
+    if args.o:
+        basename = args.o
+    else:
+        basename = os.path.splitext(os.path.basename(input_file))[0]
+
+    times = read_dissociation_times(input_file, mode='out', timestep=2e-6)
     bs_res_times = bootstrap_residence_times(times, n_samples=50000, sample_size=None)
 
     np.savetxt(f'{basename}_t_diss.txt', times, fmt='%.3E')
