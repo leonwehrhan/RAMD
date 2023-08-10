@@ -102,6 +102,9 @@ def bootstrap_residence_times(times, n_samples=50000, sample_size=None):
 
 
 def main():
+    '''
+    Command line interface for tRAMD code. Works only for supplying one .oput file.
+    '''
     parser = argparse.ArgumentParser(description='Process tRAMD data to get effective residence times.')
     parser.add_argument('input_file')
     parser.add_argument('-o', help='Output file basename.')
