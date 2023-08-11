@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 from context import tRAMD
 from context import plot
 
@@ -28,3 +29,25 @@ def test_bootstrap_residence_times():
 
     fig, ax = plt.subplots()
     plot.residence_time_distribution(ax, bs_res_times, n_bins=6)
+
+
+def test_plots():
+
+    times = tRAMD.read_dissociation_times('test_data.out', mode='out', timestep=2e-6)
+    bs_res_times = tRAMD.bootstrap_residence_times(times, n_samples=50000, sample_size=None)
+
+    fig, ax = plt.subplots()
+    plot.cumulative_histogram(ax, times)
+    plt.savefig('test_hist.png', dpi=75)
+    plt.close()
+
+    fig, ax = plt.subplots()
+    plot.residence_time_distribution(ax, bs_res_times, n_bins=6)
+    plt.savefig('test_t_eff.png', dpi=75)
+    plt.close()
+
+    assert os.path.exists('test_hist.png')
+    assert os.path.exists('test_t_eff.png')
+
+    os.remove('test_hist.png')
+    os.remove('test_t_eff.png')
