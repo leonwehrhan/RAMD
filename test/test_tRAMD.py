@@ -27,9 +27,6 @@ def test_bootstrap_residence_times():
 
     assert len(bs_res_times) == 50000
 
-    fig, ax = plt.subplots()
-    plot.residence_time_distribution(ax, bs_res_times, n_bins=6)
-
 
 def test_plots():
 
