@@ -53,3 +53,31 @@ def cv_timeseries(files, out_dir):
             plt.savefig(os.path.join(out_dir, x, f'sim{i}.png'), dpi=150)
             plt.close()
     
+
+def cv_scatter(files, cv1, cv2, out_dir):
+    '''
+    Make scatter plots of pairs of collective variables.
+
+    Parameters
+    ----------
+    files : list
+        List of paths to collective variable files.
+    cv1 : str
+        Name of CV 1.
+    cv2 : str
+        Name of CV 2.
+    out_dir : str
+        Output directory.
+    '''
+    if not os.path.exists(out_dir):
+        os.mkdir(out_dir)
+    
+    for i, f in enumerate(files):
+        df = plumed.read_as_pandas(f)
+
+        fig, ax = plt.subplots()
+        ax.scatter(df[cv1], df[cv2], color='k', alpha=0.5)
+        ax.set_xlabel(cv1)
+        ax.set_ylabel(cv2)
+        plt.savefig(os.path.join(out_dir, f'{cv1}-{cv2}-sim{i}.png'), dpi=150)
+        plt.close()
