@@ -25,9 +25,9 @@ def cv_timeseries(files, out_dir):
         df = plumed.read_as_pandas(f)
         dfs.append(df)
 
-    df_all = pd.concat(df)
+    df_all = pd.concat(dfs)
 
-    cv_names = df_all.columns
+    cv_names = [x for x in df_all.columns]
     cv_names.remove('time')
 
     for x in cv_names:
@@ -48,6 +48,8 @@ def cv_timeseries(files, out_dir):
             fig, ax = plt.subplots()
             ax.plot(df['time'], df[x])
             ax.set_ylim(ylims[x][0], ylims[x][1])
+            ax.set_xlabel('Time [ps]')
+            ax.set_ylabel(x)
             plt.savefig(os.path.join(out_dir, x, f'sim{i}.png'), dpi=150)
             plt.close()
     
