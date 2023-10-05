@@ -101,6 +101,37 @@ def bootstrap_residence_times(times, n_samples=50000, sample_size=None):
     return np.array(bs_res_times)
 
 
+def plumed_dissociation_times(dfs, r_diss):
+    '''
+    Read dissociation times from DataFrames from plumed COLVAR file.
+
+    Parameters
+    ----------
+    dfs : list of pd.DataFrame
+        DataFrames with data from plumed COLVAR file. Must have column names time and r.
+    r_diss : float
+        Value of r when complex is dissociated.
+    '''
+    times = []
+
+    for df in dfs:
+        t_total = len(df)
+        t_diss = 0.
+        for i in range(t_total):
+            t = df['time'][i]
+            r = df['r'][i]
+            if r < r_diss:
+                t_diss = t
+            else:
+                t_diss = t
+                break
+        times.append(t_diss)
+    
+    times = np.array(times)
+    times = np.sort(times)
+    return times
+
+
 def main():
     '''
     Command line interface for tRAMD code. Works only for supplying one .oput file.
